@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Vue App</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+
+    <div id="app" class="container">
+        <!-- <p>Hello {{ name }} !</p>
+        <p><input type="text" v-model="name"></p> -->
+        <h1>
+            <button v-on:click="purge">
+                Purge
+            </button> My Todos
+            <span class="info">
+                ({{ remaining.length }} / {{ todos.length }}
+                )
+                <p>
+                    Total Likes: {{ total }}
+                </p>
+            </span>
+        </h1>
+        <!-- <ul>
+            <li v-for="(todo, index) in todos">
+                <input type="checkbox" v-model="todo.isDone"> <span v-bind:class="{done: todo.isDone}">
+                    {{ todo.title }}
+                <span v-on:click="deleteItem(index)" class="command">[x]</span></span>
+            </li>
+            <li v-show="!todos.length">
+                Nothing to do, yay!
+            </li>
+        </ul> -->
+        <ul v-if="todos.length">
+            <li v-for="(todo, index) in todos">
+                <input type="checkbox" v-model="todo.isDone">
+                <span v-bind:class="{done: todo.isDone}">
+                    {{ todo.title }}
+                <span v-on:click="deleteItem(index)" class="command">
+                    [x]
+                </span>
+                </span>
+                <like-component v-on:increment="incrementTotal"></like-component>
+                <like-component message="Awesome" v-on:increment="incrementTotal"></like-component>
+                <like-component message="Great" v-on:increment="incrementTotal"></like-component>
+            </li>
+        </ul>
+        <ul v-else>
+            <li>Nothing to do, yay!</li>
+        </ul>
+        <form v-on:submit.prevent="addItem">
+            <input type="text" v-model="newItem">
+            <input type="submit" value="add">
+        </form>
+    </div>
+    <!-- body最後に読み込む -->
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>
